@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ textbook.grade_level.level }} класс, {{ textbook.subject.name }} {{ textbook.authors }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ textbook.grade_level.level }} класс, {{ textbook.subject.name }} {{ textbook.authors }}</h1>
+<img src="{{ textbook.cover_image.url }}" alt="{{ textbook.short_name }}" class="cover-image">
+
+<p>{{ textbook.description }}</p>
+
+<h2>Содержание</h2>
+<div class="solutions">
+    {% for solution in solutions %}
+        <a href="{% url 'solution_detail' grade=textbook.grade_level.level subject=textbook.subject.english_name short_name=textbook.short_name folder=solution.folder image_name=solution.image_name %}" class="solution-btn">
+            Страница {{ solution.page_number }}: {{ solution.title }}
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Школьные решебники{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">Учебники для школьников</a></h1>
+        <div class="grade-buttons">
+            {% for grade in grades %}
+                <div class="grade-dropdown">
+                    <button class="grade-btn">{{ grade.level }} класс</button>
+                    <div class="subjects-dropdown">
+                        <ul>
+                            {% for subject in subjects %}
+                                <li>
+                                    <a href="{% url 'textbook_list' grade=grade.level subject=subject.english_name %}">{{ subject.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Школьные решебники</p>
+    </footer>
+</body>
+</html>

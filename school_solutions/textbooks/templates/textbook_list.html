@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Учебники
+{% endblock %}
+
+{% block content %}
+
+<h1>Учебники</h1>
+<div class="textbook-list">
+    {% for textbook in textbooks %}
+        <a href="{{ textbook.get_absolute_url }}" class="textbook-block">
+            <div class="textbook">
+                <img src="{{ textbook.cover_image.url }}" alt="{{ textbook.short_name }}" class="cover-image">
+                <div class="textbook-info">
+                    <p><strong>{{ textbook.grade_level.level }} класс, {{ textbook.subject.name }}</strong></p>
+                    {% if textbook.publisher %}
+                    <p>Издательство: {{ textbook.publisher }}</p>
+                    {% endif %}
+                    <p>Авторы: {{ textbook.authors }}</p>
+                    <p>Год: {{ textbook.publication_year }}</p>
+                    {% if textbook.number_of_parts %}
+                    <p>Частей: {{ textbook.number_of_parts }}</p>
+                    {% endif %}
+                    {% if textbook.education_level %}
+                    <p>Уровень обучения: {{ textbook.education_level }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
